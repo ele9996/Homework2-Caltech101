@@ -26,15 +26,14 @@ class Caltech(VisionDataset):
 
         input_path = os.path.join(self.root, split)
 
-        self._items=[]
+        self._items = []
         with open(input_path, "r") as split_file:
-             for file_line in split_file.readlines():
-                line = file_line.replace("\n","")
+            for file_line in split_file.readlines():
+                line = file_line.replace("\n", "")
                 if not line.startswith("BACKGROUND_Google"):
                     category, img = line.split("/")
                     self._items.append((pil_loader(os.path.join(self.root, "101_ObjectCategories", category, img)),
                                         self.class_list.index(category)))
-
 
     def _class_finder(self, folder, folder_to_exclude):
         self.class_list = [d.name for d in os.scandir(folder) if d.is_dir() and d.name != folder_to_exclude]
@@ -50,7 +49,7 @@ class Caltech(VisionDataset):
             tuple: (sample, target) where target is class_index of the target class.
         '''
 
-        image, label = ...  # Provide a way to access image and label via index
+        image, label = self._items[index]  # Provide a way to access image and label via index
         # Image should be a PIL Image
         # label can be int
 
@@ -65,5 +64,5 @@ class Caltech(VisionDataset):
         The __len__ method returns the length of the dataset
         It is mandatory, as this is used by several other components
         '''
-        length = ...  # Provide a way to get the length (number of elements) of the dataset
+        length = len(self._items)# Provide a way to get the length (number of elements) of the dataset
         return length
