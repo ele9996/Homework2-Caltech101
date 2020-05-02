@@ -20,7 +20,7 @@ class Caltech(VisionDataset):
 
         self.split = split  # This defines the split you are going to use
         # (split files are called 'train.txt' and 'test.txt')
-        self._class_finder(os.path.join(self.root, "101_ObjectCategories"), "BACKGROUND_Google")
+        self._class_finder(self.root, "BACKGROUND_Google")
         if not split.endswith(".txt"):
             split = split + ".txt"
 
@@ -32,7 +32,7 @@ class Caltech(VisionDataset):
                 line = file_line.replace("\n", "")
                 if not line.startswith("BACKGROUND_Google"):
                     category, img = line.split("/")
-                    self._items.append((pil_loader(os.path.join(self.root, "101_ObjectCategories", category, img)),
+                    self._items.append((pil_loader(os.path.join(self.root, category, img)),
                                         self.class_list.index(category)))
 
     def _class_finder(self, folder, folder_to_exclude):
