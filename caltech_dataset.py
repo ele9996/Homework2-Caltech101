@@ -24,7 +24,7 @@ class Caltech(VisionDataset):
         if not split.endswith(".txt"):
             split = split + ".txt"
 
-        input_path = os.path.join(self.root, split)
+        input_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), split)
 
         self._items = []
         with open(input_path, "r") as split_file:
