@@ -34,6 +34,7 @@ class Caltech(VisionDataset):
                     category, img = line.split("/")
                     self._items.append((pil_loader(os.path.join(self.root, category, img)),
                                         self.class_list.index(category)))
+        print(self._items)
 
     def _class_finder(self, folder, folder_to_exclude):
         self.class_list = [d.name for d in os.scandir(folder) if d.is_dir() and d.name != folder_to_exclude]
@@ -66,3 +67,5 @@ class Caltech(VisionDataset):
         '''
         length = len(self._items)# Provide a way to get the length (number of elements) of the dataset
         return length
+
+
